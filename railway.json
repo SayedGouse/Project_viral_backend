@@ -1,0 +1,10 @@
+{
+    "name": "my-python-app",
+    "builds": [
+      {
+        "src": "Dockerfile",
+        "use": "@railway/docker"
+      }
+    ]
+  }
+  
