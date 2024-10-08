@@ -1,0 +1,12 @@
+Flask
+requests
+flask-cors
+PyPDF2
+python-docx
+PyMuPDF
+pypdf
+pypdfium2
+google-cloud-vision
+pdf2image
+pytesseract
+Pillow

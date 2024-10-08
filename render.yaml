@@ -1,0 +1,45 @@
+# services:
+#   - type: web
+#     name: ats-job-world-wide
+#     env: python
+#     plan: free  # Use the free plan or change to paid depending on your needs
+#     buildCommand: |
+#       apt-get update && apt-get install -y tesseract-ocr poppler-utils
+#       pip install -r requirements.txt
+#     startCommand: python app.py
+
+
+services:
+  - type: web
+    name: ats-job-world-wide
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile  # Path to your Dockerfile
+    buildCommand: ""  # No additional build command is required since Dockerfile handles the build
+    startCommand: ""  # Dockerfile's CMD will handle the start command
+    autoDeploy: true  # Automatically deploy on changes
+
+
+# services:
+#   - type: web
+#     name: ats-job-world-wide
+#     env: python
+#     plan: free
+#     buildCommand: |
+#       apt-get update && \
+#       apt-get install -y tesseract-ocr poppler-utils && \
+#       pip install -r Pbackend/requirements.txt
+#     startCommand: python Pbackend/app.py
+
+# runtime: python39  # or your desired Python version
+# entrypoint: python Pbackend/app.py
+
+# env: standard
+
+# handlers:
+# - url: /.*
+#   script: auto
+
+# requirements:
+# - tesseract-ocr
+# - poppler-utils
