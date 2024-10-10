@@ -17,6 +17,11 @@ from PIL import Image
 import os 
 from io import BytesIO
 import zipfile
+from PIL import Image
+import PIL.Image
+
+from pytesseract import image_to_string
+import pytesseract
 
 import subprocess
 import shutil
@@ -81,31 +86,6 @@ def get_jobs():
         return "Internal Server Error", 500
 
 
-# Route for handling job search on Findwork (Indeed alternative)
-# @app.route('/api/indeed', methods=['POST'])
-# def get_indeed_jobs():
-#     print("Inside backend")
-#     data = request.json
-#     ttly = data.get('ttly')
-#     cty = data.get('cty')
-#     pageNum = data.get('pageNum')
-
-#     print("Data", ttly, cty, pageNum)
-
-#     target_url = f"https://findwork.dev/api/jobs/?location={cty}&search={ttly}"
-
-#     headers = {
-#         "Authorization": "Token 2a28f35ae548dd7639544942e7db987c585d7342",
-#     }
-
-#     try:
-#         response = requests.get(target_url, headers=headers)
-#         return jsonify(response.json())
-#     except Exception as e:
-#         print("Error occurred:", e)
-#         return "Internal Server Error", 500
-    
-
 
 # Create an 'uploads' directory if it doesn't exist
 if not os.path.exists('uploads'):
@@ -151,36 +131,6 @@ def extract_text_from_docx(file_path):
     return full_text
 
 
-
-# Function to extract images from DOCX and run OCR on them
-
-
-# def extract_text_from_docx(file_path):
-#     print(f"Reading scanned DOCX file: {file_path}")
-    
-#     # Extract images from the DOCX file
-#     with zipfile.ZipFile(file_path, 'r') as docx:
-#         image_files = [item for item in docx.namelist() if item.startswith('word/media/')]
-
-#         if not image_files:
-#             print("No images found in the document.")
-#             return "No images to extract text from."
-        
-#         full_text = ""
-        
-#         for image_file in image_files:
-#             # Read the image data
-#             image_data = docx.read(image_file)
-#             image = Image.open(BytesIO(image_data))
-            
-#             # Use pytesseract to extract text from the image
-#             text = pytesseract.image_to_string(image, lang='eng')
-#             full_text += f"Text from {image_file}:\n{text}\n"
-
-#         if not full_text.strip():
-#             print("Warning: No text found in the images.")
-        
-#         return full_text
 
 # Function to calculate resume score based on keyword matching
 def calculate_resume_score(resume_text, job_keywords, file_category):
